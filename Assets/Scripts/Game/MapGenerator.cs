@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    public Transform Player;
     public int MaxHeight;
     public int MaxWidth;
     public List<Hazard> hazards = new List<Hazard>();
+    public List<float> hazardsWeight = new List<float>();
+
     public List<Wave> Waves = new List<Wave>();
     public List<float> WavesWeight = new List<float>();
     public float hazardDensity = 0.01f;
@@ -22,6 +23,7 @@ public class MapGenerator : MonoBehaviour
     private int _currentHeightIndex;
     private int _currentWidthIndex;
     private Dictionary<Wave, float> WeightedWave = new Dictionary<Wave, float>();
+    private Dictionary<Hazard, float> WeightedHazard = new Dictionary<Hazard, float>();
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,10 @@ public class MapGenerator : MonoBehaviour
         for (int i = 0; i < Waves.Count; i++)
         {
             WeightedWave.Add(Waves[i], WavesWeight[i]);
+        }
+        for (int j = 0; j < hazards.Count; j++)
+        {
+            WeightedHazard.Add(hazards[j], hazardsWeight[j]);
         }
         NextGenerationAllowed = 0;
         GenerateMap();
@@ -70,7 +76,7 @@ public class MapGenerator : MonoBehaviour
 
         if (HazardCreation <= hazardDensity)
         {
-            Hazard hazard = Instantiate(hazards[0],
+            Hazard hazard = Instantiate(WeightedHazard.RandomElementByWeight(v => v.Value).Key,
                         new Vector3(transform.position.x + x + PositionVariationX, transform.position.y - y - PositionVariationY, 1), Quaternion.identity);
         }
 
@@ -83,10 +89,10 @@ public class MapGenerator : MonoBehaviour
 
     public void CreateOffScreen()
     {
-        float minX = Player.position.x - OffScreenRangeGeneration;
-        float maxX = Player.position.x + OffScreenRangeGeneration;
-        float minY = Player.position.y - OffScreenRangeGeneration;
-        float maxY = Player.position.y + OffScreenRangeGeneration;
+        float minX = transform.localPosition.x - OffScreenRangeGeneration;
+        float maxX = transform.localPosition.x + OffScreenRangeGeneration;
+        float minY = transform.localPosition.y - OffScreenRangeGeneration;
+        float maxY = transform.localPosition.y + OffScreenRangeGeneration;
 
         float minRangeX = minX - OffScreenLenght;
         float maxRangeX = maxX + OffScreenLenght;

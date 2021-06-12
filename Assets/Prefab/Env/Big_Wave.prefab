@@ -147,4 +147,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RandomScale: 0
+  RandomFlip: 1
   Animator: {fileID: 5326506190920247319}
