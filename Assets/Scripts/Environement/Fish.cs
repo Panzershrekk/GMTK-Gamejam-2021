@@ -8,7 +8,6 @@ public class Fish : MonoBehaviour
 
     public void Trigger()
     {
-        Debug.Log("eee");
         Destroy(gameObject);
     }
 }

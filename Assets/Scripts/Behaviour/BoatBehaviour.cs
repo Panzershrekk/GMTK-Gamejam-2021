@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterBehaviour : MonoBehaviour
+public class BoatBehaviour : MonoBehaviour
 {
     public GameManager gameManager;
     public float maxHitpoint = 100;
@@ -10,24 +10,14 @@ public class CharacterBehaviour : MonoBehaviour
 
     void TakeDamage(float value)
     {
+        Debug.Log("Ouch boat");
         currentHealth -= value;
         if (currentHealth <= 0)
         {
-            Debug.Log("Defeat");
+            Debug.Log("Victory");
         }
         gameManager?.RefreshUI();
     }
-
-    void RestoreHealth(float value)
-    {
-        currentHealth += value;
-        if (currentHealth > maxHitpoint)
-        {
-            currentHealth = maxHitpoint;
-        }
-        gameManager?.RefreshUI();
-    }
-
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.GetComponent<Hazard>() != null)
@@ -35,12 +25,6 @@ public class CharacterBehaviour : MonoBehaviour
             Hazard hazard = col.GetComponent<Hazard>();
             hazard.Trigger();
             TakeDamage(hazard.DamageTakenValue);
-        }
-        if (col.GetComponent<Fish>() != null)
-        {
-            Fish fish = col.GetComponent<Fish>();
-            fish.Trigger();
-            RestoreHealth(fish.HealthRestoreValue);
         }
     }
 }
