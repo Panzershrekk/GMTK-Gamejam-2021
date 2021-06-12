@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Hazard : MonoBehaviour
 {
+    public Animator animator;
     public float DamageTakenValue = 5;
     public bool IsSetUp = false;
     public void Trigger()
     {
-        Destroy(gameObject);
+        GetComponent<Collider2D>().enabled = false;
+        animator.Play("HazardDestroy");
+        Destroy(gameObject, 0.3f);
     }
 
     void OnTriggerEnter2D(Collider2D col)
