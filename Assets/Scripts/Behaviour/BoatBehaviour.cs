@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class BoatBehaviour : MonoBehaviour
 {
+    public Animator animator;
     public GameManager gameManager;
     public float maxHitpoint = 100;
     public float currentHealth = 100;
 
     void TakeDamage(float value)
     {
-        Debug.Log("Ouch boat");
+        animator.Play("Stun");
         currentHealth -= value;
         if (currentHealth <= 0)
         {

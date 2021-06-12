@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
+    public Transform Player;
     public int MaxHeight;
     public int MaxWidth;
     public List<Hazard> hazards = new List<Hazard>();
@@ -35,11 +36,11 @@ public class MapGenerator : MonoBehaviour
 
     void Update()
     {
-        /*if (Time.time > NextGenerationAllowed)
+        if (Time.time > NextGenerationAllowed)
         {
             NextGenerationAllowed = Time.time + GenerationTick;
             CreateOffScreen();
-        }*/
+        }
     }
 
     public void GenerateMap()
@@ -82,10 +83,10 @@ public class MapGenerator : MonoBehaviour
 
     public void CreateOffScreen()
     {
-        float minX = transform.position.x - OffScreenRangeGeneration;
-        float maxX = transform.position.x + OffScreenRangeGeneration;
-        float minY = transform.position.y - OffScreenRangeGeneration;
-        float maxY = transform.position.y + OffScreenRangeGeneration;
+        float minX = Player.position.x - OffScreenRangeGeneration;
+        float maxX = Player.position.x + OffScreenRangeGeneration;
+        float minY = Player.position.y - OffScreenRangeGeneration;
+        float maxY = Player.position.y + OffScreenRangeGeneration;
 
         float minRangeX = minX - OffScreenLenght;
         float maxRangeX = maxX + OffScreenLenght;
