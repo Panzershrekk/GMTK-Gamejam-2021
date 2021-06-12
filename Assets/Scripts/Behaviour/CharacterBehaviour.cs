@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterBehaviour : MonoBehaviour
 {
+    public Animator animator;
     public GameManager gameManager;
     public float maxHitpoint = 100;
     public float currentHealth = 100;
@@ -11,6 +12,7 @@ public class CharacterBehaviour : MonoBehaviour
     void TakeDamage(float value)
     {
         currentHealth -= value;
+        animator.Play("Stun");
         if (currentHealth <= 0)
         {
             Debug.Log("Defeat");
