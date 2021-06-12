@@ -7,13 +7,21 @@ public class MapGenerator : MonoBehaviour
     public int MaxHeight;
     public int MaxWidth;
     public List<Hazard> hazards = new List<Hazard>();
-    public float hazardDensity = 70;
+    public List<Wave> Waves = new List<Wave>();
+
+    public Dictionary<Wave, float> test = new Dictionary<Wave, float>();
+    public float hazardDensity = 0.50f;
     private int _currentHeightIndex;
     private int _currentWidthIndex;
     // Start is called before the first frame update
     void Start()
     {
         GenerateMap();
+    }
+
+    void Update()
+    {
+
     }
 
     public void GenerateMap()
@@ -38,11 +46,23 @@ public class MapGenerator : MonoBehaviour
         float PositionVariationX = Random.Range(0.0f, 1.0f);
         float PositionVariationY = Random.Range(0.0f, 1.0f);
 
-        int HazardCreation = Random.Range(0, 100);
+        float HazardCreation = Random.Range(0.00f, 1.00f);
         if (HazardCreation <= hazardDensity)
         {
             Hazard hazard = Instantiate(hazards[0],
                         new Vector3(transform.position.x + _currentWidthIndex + PositionVariationX, transform.position.y - _currentHeightIndex - PositionVariationY, 1), Quaternion.identity);
         }
+    }
+
+    public void ChooseByWeight()
+    {
+        Dictionary<Wave, float> WeightedWave = new Dictionary<Wave, float>();
+
+        for (int i = 0; i < Waves.Count; i++)
+        {
+            WeightedWave.Add(Waves[i], 1);
+        }
+
+        Wave wave = WeightedWave.RandomElementByWeight(v => v.Value).Key;
     }
 }
