@@ -11,7 +11,6 @@ public class GameUIManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        Debug.Log("Wesh");
         SharkLifeFill.fillAmount = GameManager.CharacterBehaviour.currentHealth / GameManager.CharacterBehaviour.maxHitpoint;
         BoatLifeFill.fillAmount = GameManager.BoatBehaviour.currentHealth / GameManager.BoatBehaviour.maxHitpoint;
     }
