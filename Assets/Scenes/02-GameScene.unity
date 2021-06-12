@@ -25147,9 +25147,11 @@ MonoBehaviour:
   hazards:
   - {fileID: 8780776139102682432, guid: 2e77cb8dff3caac42afe533177840114, type: 3}
   - {fileID: 8780776139102682432, guid: de8432fb4117820499dc353b74662ca1, type: 3}
+  - {fileID: 8780776139102682432, guid: b3f92b366709cf04fbf935d68aac8169, type: 3}
   hazardsWeight:
   - 10
-  - 1
+  - 5
+  - 5
   Waves:
   - {fileID: 4951164325215373684, guid: 417d87833f7f2684cbf0b23132b03b13, type: 3}
   - {fileID: 3847001101610931078, guid: 3abcdb072b1e4d5438b266eace88a2bd, type: 3}
@@ -44671,6 +44673,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021972558}
     m_Modifications:
+    - target: {fileID: 8882334767612754258, guid: 272a55a404ad3c6458ea04824302eb6e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8882334768323227836, guid: 272a55a404ad3c6458ea04824302eb6e, type: 3}
       propertyPath: m_Name
       value: BATEAU
@@ -84878,6 +84884,10 @@ PrefabInstance:
     - target: {fileID: 4792481020579570799, guid: e76323b1a761ef04295f3b643ba52a38, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4792481020785751159, guid: e76323b1a761ef04295f3b643ba52a38, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e76323b1a761ef04295f3b643ba52a38, type: 3}
