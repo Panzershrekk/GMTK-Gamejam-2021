@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    public Transform Player;
     public int MaxHeight;
     public int MaxWidth;
     public List<Hazard> hazards = new List<Hazard>();
@@ -14,7 +13,7 @@ public class MapGenerator : MonoBehaviour
     public float waveDensity = 0.01f;
 
     public float OffScreenRangeGeneration;
-    public float OffScreenLenght;
+    public int OffScreenLenght;
     public int OffScreenIteration;
     public float GenerationTick = 1;
     public float NextGenerationAllowed;
@@ -30,17 +29,17 @@ public class MapGenerator : MonoBehaviour
         {
             WeightedWave.Add(Waves[i], WavesWeight[i]);
         }
-        NextGenerationAllowed = Time.time + GenerationTick;
+        NextGenerationAllowed = 0;
         GenerateMap();
     }
 
     void Update()
     {
-        if (Time.time > NextGenerationAllowed)
+        /*if (Time.time > NextGenerationAllowed)
         {
             NextGenerationAllowed = Time.time + GenerationTick;
             CreateOffScreen();
-        }
+        }*/
     }
 
     public void GenerateMap()
@@ -60,7 +59,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    public void CreateElement(int x, int y)
+    public void CreateElement(float x, float y)
     {
         float PositionVariationX = Random.Range(0.0f, 1.0f);
         float PositionVariationY = Random.Range(0.0f, 1.0f);
@@ -83,10 +82,25 @@ public class MapGenerator : MonoBehaviour
 
     public void CreateOffScreen()
     {
-        float minX = Player.position.x - OffScreenRangeGeneration;
-        float maxX = Player.position.x + OffScreenRangeGeneration;
-        float minY = Player.position.y - OffScreenRangeGeneration;
-        float maxY = Player.position.y + OffScreenRangeGeneration;
+        float minX = transform.position.x - OffScreenRangeGeneration;
+        float maxX = transform.position.x + OffScreenRangeGeneration;
+        float minY = transform.position.y - OffScreenRangeGeneration;
+        float maxY = transform.position.y + OffScreenRangeGeneration;
 
+        float minRangeX = minX - OffScreenLenght;
+        float maxRangeX = maxX + OffScreenLenght;
+        float minRangeY = minY - OffScreenLenght;
+        float maxRangeY = maxY + OffScreenLenght;
+
+        for (float i = minRangeY; i < maxRangeY; i++)
+        {
+            for (float j = minRangeX; j < maxRangeX; j++)
+            {
+                if ((j <= minX || j >= maxX) && (i <= minY || i >= maxY))
+                {
+                    CreateElement(j, i);
+                }
+            }
+        }
     }
 }
