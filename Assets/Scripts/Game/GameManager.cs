@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public BoatBehaviour BoatBehaviour;
     public GameUIManager GameUIManager;
 
+    public Animator endGameAnimator;
     [HideInInspector]
     public string endTime;
     [HideInInspector]
@@ -49,10 +50,12 @@ public class GameManager : MonoBehaviour
         GameStarted = true;
     }
 
-    public void FinishGame()
+    public void FinishGame(bool victory)
     {
         GameStarted = false;
+        endGameAnimator.Play("EndScreenIn");
         var ts = TimeSpan.FromSeconds(_totalTime);
         endTime = string.Format("{0:00}:{1:00}", ts.TotalMinutes, ts.Seconds);
+        GameUIManager.EndUI(victory);
     }
 }

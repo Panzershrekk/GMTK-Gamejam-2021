@@ -44,7 +44,7 @@ public class CharacterBehaviour : MonoBehaviour
             }
             if (currentHealth <= 0)
             {
-                gameManager.FinishGame();
+                gameManager.FinishGame(false);
             }
             gameManager?.RefreshUI();
         }
