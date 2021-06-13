@@ -128,7 +128,7 @@ public class MapGenerator : MonoBehaviour
     public void OverlapCheck()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 35, 1 << 0);
-        if (hitColliders.Length < 5)
+        if (hitColliders.Length < 7)
         {
             CreateOffScreen();
         }
