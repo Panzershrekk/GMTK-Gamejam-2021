@@ -11,38 +11,47 @@ public class CharacterBehaviour : MonoBehaviour
 
     void TakeDamage(float value)
     {
-        currentHealth -= value;
-        animator.Play("Stun");
-        if (currentHealth <= 0)
+        if (gameManager.GameStarted == true)
         {
-            Debug.Log("Defeat");
+            currentHealth -= value;
+            animator.Play("Stun");
+            if (currentHealth <= 0)
+            {
+                gameManager.FinishGame();
+            }
+            gameManager?.RefreshUI();
         }
-        gameManager?.RefreshUI();
     }
 
     void RestoreHealth(float value)
     {
-        currentHealth += value;
-        if (currentHealth > maxHitpoint)
+        if (gameManager.GameStarted == true)
         {
-            currentHealth = maxHitpoint;
+            currentHealth += value;
+            if (currentHealth > maxHitpoint)
+            {
+                currentHealth = maxHitpoint;
+            }
+            gameManager?.RefreshUI();
         }
-        gameManager?.RefreshUI();
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.GetComponent<Hazard>() != null)
+        if (gameManager.GameStarted == true)
         {
-            Hazard hazard = col.GetComponent<Hazard>();
-            hazard.Trigger();
-            TakeDamage(hazard.DamageTakenValue);
-        }
-        if (col.GetComponent<Fish>() != null)
-        {
-            Fish fish = col.GetComponent<Fish>();
-            fish.Trigger();
-            RestoreHealth(fish.HealthRestoreValue);
+            if (col.GetComponent<Hazard>() != null)
+            {
+                Hazard hazard = col.GetComponent<Hazard>();
+                hazard.Trigger();
+                TakeDamage(hazard.DamageTakenValue);
+            }
+            if (col.GetComponent<Fish>() != null)
+            {
+                Fish fish = col.GetComponent<Fish>();
+                fish.Trigger();
+                RestoreHealth(fish.HealthRestoreValue);
+            }
         }
     }
 }

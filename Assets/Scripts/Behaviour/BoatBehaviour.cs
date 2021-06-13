@@ -11,21 +11,27 @@ public class BoatBehaviour : MonoBehaviour
 
     void TakeDamage(float value)
     {
-        animator.Play("Stun");
-        currentHealth -= value;
-        if (currentHealth <= 0)
+        if (gameManager.GameStarted == true)
         {
-            Debug.Log("Victory");
+            animator.Play("Stun");
+            currentHealth -= value;
+            if (currentHealth <= 0)
+            {
+                Debug.Log("Victory");
+            }
+            gameManager?.RefreshUI();
         }
-        gameManager?.RefreshUI();
     }
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.GetComponent<Hazard>() != null)
+        if (gameManager.GameStarted == true)
         {
-            Hazard hazard = col.GetComponent<Hazard>();
-            hazard.Trigger();
-            TakeDamage(hazard.DamageTakenValue);
+            if (col.GetComponent<Hazard>() != null)
+            {
+                Hazard hazard = col.GetComponent<Hazard>();
+                hazard.Trigger();
+                TakeDamage(hazard.DamageTakenValue);
+            }
         }
     }
 }

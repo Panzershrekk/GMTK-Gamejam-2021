@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControlManager : MonoBehaviour
 {
+    public GameManager gameManager;
     public Animator sharkAnimator;
     public float speed = 10.0f;
     public Rigidbody2D rb;
@@ -13,22 +14,28 @@ public class PlayerControlManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _movement.x = Input.GetAxisRaw("Horizontal");
-        _movement.y = Input.GetAxisRaw("Vertical");
-        if (_movement.x != 0 || _movement.y != 0)
+        if (gameManager.GameStarted == true)
         {
-            sharkAnimator.SetBool("Moving", true);
+            _movement.x = Input.GetAxisRaw("Horizontal");
+            _movement.y = Input.GetAxisRaw("Vertical");
+            if (_movement.x != 0 || _movement.y != 0)
+            {
+                sharkAnimator.SetBool("Moving", true);
+            }
+            else
+            {
+                sharkAnimator.SetBool("Moving", false);
+            }
+            Flip();
         }
-        else
-        {
-            sharkAnimator.SetBool("Moving", false);
-        }
-        Flip();
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + _movement * speed * Time.fixedDeltaTime);
+        if (gameManager.GameStarted == true)
+        {
+            rb.MovePosition(rb.position + _movement * speed * Time.fixedDeltaTime);
+        }
     }
 
     public void Flip()

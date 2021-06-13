@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
+    public GameManager GameManager;
     public int MaxHeight;
     public int MaxWidth;
     public List<Hazard> hazards = new List<Hazard>();
@@ -42,10 +43,13 @@ public class MapGenerator : MonoBehaviour
 
     void Update()
     {
-        if (Time.time > NextGenerationAllowed)
+        if (GameManager.GameStarted == true)
         {
-            NextGenerationAllowed = Time.time + GenerationTick;
-            CreateOffScreen();
+            if (Time.time > NextGenerationAllowed)
+            {
+                NextGenerationAllowed = Time.time + GenerationTick;
+                CreateOffScreen();
+            }
         }
     }
 
