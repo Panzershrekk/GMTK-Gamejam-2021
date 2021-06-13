@@ -8,12 +8,14 @@ public class Hazard : MonoBehaviour
     public AudioSource audioSource;
     public float DamageTakenValue = 5;
     public bool IsSetUp = false;
+    public ParticleSystem particle;
     public void Trigger()
     {
         GetComponent<Collider2D>().enabled = false;
         audioSource.Play();
         animator.Play("HazardDestroy");
-        Destroy(gameObject, 0.3f);
+        particle.Play();
+        Destroy(gameObject, 0.5f);
     }
 
     void OnTriggerEnter2D(Collider2D col)

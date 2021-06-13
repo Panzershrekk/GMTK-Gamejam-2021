@@ -17,7 +17,7 @@ public class BoatBehaviour : MonoBehaviour
             currentHealth -= value;
             if (currentHealth <= 0)
             {
-                Debug.Log("Victory");
+                gameManager.FinishGame();
             }
             gameManager?.RefreshUI();
         }
