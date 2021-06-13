@@ -14,7 +14,7 @@ public class PlayerControlManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.GameStarted == true)
+        if (gameManager.GameStarted == true && gameManager.PlayerInControl == true)
         {
             _movement.x = Input.GetAxisRaw("Horizontal");
             _movement.y = Input.GetAxisRaw("Vertical");
@@ -32,7 +32,7 @@ public class PlayerControlManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (gameManager.GameStarted == true)
+        if (gameManager.GameStarted == true && gameManager.PlayerInControl == true)
         {
             rb.MovePosition(rb.position + _movement * speed * Time.fixedDeltaTime);
         }

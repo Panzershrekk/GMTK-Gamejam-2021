@@ -5,9 +5,13 @@ using UnityEngine;
 public class Fish : MonoBehaviour
 {
     public float HealthRestoreValue;
+    public Transform baseParent;
+    public Animator destroyFishAnimator;
 
     public void Trigger()
     {
-        Destroy(gameObject);
+        GetComponent<Collider2D>().enabled = false;
+        destroyFishAnimator.Play("FishDestroy");
+        Destroy(baseParent.gameObject, 0.5f);
     }
 }

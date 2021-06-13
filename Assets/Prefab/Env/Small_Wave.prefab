@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7981831187142161253, guid: b8aac4d87fd51714095ab8cb563540ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -116,4 +116,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RandomScale: 1
+  RandomFlip: 0
   Animator: {fileID: 5465727056455418013}

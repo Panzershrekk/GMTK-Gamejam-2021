@@ -12,12 +12,15 @@ public class MapGenerator : MonoBehaviour
 
     public List<Wave> Waves = new List<Wave>();
     public List<float> WavesWeight = new List<float>();
+
+    public GameObject fish;
+
     public float hazardDensity = 0.01f;
     public float waveDensity = 0.01f;
+    public float fishDensity = 0.01f;
 
     public float OffScreenRangeGeneration;
     public int OffScreenLenght;
-    public int OffScreenIteration;
     public float GenerationTick = 1;
     public float NextGenerationAllowed;
 
@@ -38,7 +41,7 @@ public class MapGenerator : MonoBehaviour
             WeightedHazard.Add(hazards[j], hazardsWeight[j]);
         }
         NextGenerationAllowed = 0;
-        GenerateMap();
+        //GenerateMap();
     }
 
     void Update()
@@ -75,8 +78,9 @@ public class MapGenerator : MonoBehaviour
         float PositionVariationX = Random.Range(0.0f, 1.0f);
         float PositionVariationY = Random.Range(0.0f, 1.0f);
 
-        float HazardCreation = Random.Range(0.00f, 1.00f);
-        float WaveCreation = Random.Range(0.00f, 1.00f);
+        float HazardCreation = Random.Range(0.0000f, 1.0000f);
+        float WaveCreation = Random.Range(0.0000f, 1.0000f);
+        float FishCreation = Random.Range(0.0000f, 1.0000f);
 
         if (HazardCreation <= hazardDensity)
         {
@@ -88,6 +92,10 @@ public class MapGenerator : MonoBehaviour
         {
             Wave wave = Instantiate(WeightedWave.RandomElementByWeight(v => v.Value).Key,
                         new Vector3(transform.position.x + x, transform.position.y - y, 1), Quaternion.identity);
+        }
+        if (FishCreation <= fishDensity)
+        {
+            GameObject instFish = Instantiate(fish, new Vector3(transform.position.x + x, transform.position.y - y, 1), Quaternion.identity);
         }
     }
 

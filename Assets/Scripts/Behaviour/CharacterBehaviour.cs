@@ -9,12 +9,39 @@ public class CharacterBehaviour : MonoBehaviour
     public float maxHitpoint = 100;
     public float currentHealth = 100;
 
-    void TakeDamage(float value)
+
+    [Header("Bleed damage")]
+    public float damagePerTick = 1f;
+    public float tickTime = 1f;
+    private float nextTick;
+
+    void Start()
+    {
+        nextTick = Time.time + tickTime;
+    }
+
+    void Update()
+    {
+        if (gameManager.GameStarted == true)
+        {
+            if (Time.time > nextTick)
+            {
+                TakeDamage(damagePerTick, true);
+                nextTick = Time.time + tickTime;
+            }
+        }
+    }
+
+    void TakeDamage(float value, bool isBleed = false)
     {
         if (gameManager.GameStarted == true)
         {
             currentHealth -= value;
-            animator.Play("Stun");
+            if (isBleed == false)
+            {
+                gameManager.LoseControl();
+                animator.Play("Stun");
+            }
             if (currentHealth <= 0)
             {
                 gameManager.FinishGame();
