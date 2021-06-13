@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,17 +11,24 @@ public class GameManager : MonoBehaviour
     public GameUIManager GameUIManager;
 
     [HideInInspector]
+    public string endTime;
+    [HideInInspector]
     public bool PlayerInControl = true;
     public float OutOfControllTime;
     private float _nextControll;
 
+    private float _totalTime;
     void Update()
     {
-        if (PlayerInControl == false)
+        if (GameStarted == true)
         {
-            if (Time.time > _nextControll)
+            _totalTime += Time.deltaTime;
+            if (PlayerInControl == false)
             {
-                PlayerInControl = true;
+                if (Time.time > _nextControll)
+                {
+                    PlayerInControl = true;
+                }
             }
         }
     }
@@ -44,5 +52,7 @@ public class GameManager : MonoBehaviour
     public void FinishGame()
     {
         GameStarted = false;
+        var ts = TimeSpan.FromSeconds(_totalTime);
+        endTime = string.Format("{0:00}:{1:00}", ts.TotalMinutes, ts.Seconds);
     }
 }
