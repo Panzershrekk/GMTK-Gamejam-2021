@@ -42,17 +42,19 @@ public class MapGenerator : MonoBehaviour
         }
         NextGenerationAllowed = 0;
         //GenerateMap();
+        CreateOffScreen();
     }
 
     void Update()
     {
         if (GameManager.GameStarted == true)
         {
-            if (Time.time > NextGenerationAllowed)
+            OverlapCheck();
+            /*if (Time.time > NextGenerationAllowed)
             {
                 NextGenerationAllowed = Time.time + GenerationTick;
                 CreateOffScreen();
-            }
+            }*/
         }
     }
 
@@ -120,6 +122,15 @@ public class MapGenerator : MonoBehaviour
                     CreateElement(j, i);
                 }
             }
+        }
+    }
+
+    public void OverlapCheck()
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 35, 1 << 0);
+        if (hitColliders.Length < 5)
+        {
+            CreateOffScreen();
         }
     }
 }
