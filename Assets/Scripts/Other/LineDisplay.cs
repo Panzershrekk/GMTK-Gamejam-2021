@@ -18,13 +18,6 @@ public class LineDisplay : MonoBehaviour
     void Update()
     {
         lineRenderer.SetPosition(0, new Vector3(originPos.position.x, originPos.position.y, 0));
-        if (sharkAnim.GetBool("Moving") == false)
-        {
-            lineRenderer.SetPosition(1, new Vector3(destPos.position.x, destPos.position.y, 0));
-        }
-        else
-        {
-            lineRenderer.SetPosition(1, new Vector3(destPos2.position.x, destPos2.position.y, 0));
-        }
+        lineRenderer.SetPosition(1, new Vector3(destPos.position.x, destPos.position.y, 0));
     }
 }
